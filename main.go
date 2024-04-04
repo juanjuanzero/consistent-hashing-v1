@@ -5,38 +5,11 @@ import (
 	"fmt"
 	"hash"
 	"slices"
-	"strconv"
 )
 
 func main() {
 	fmt.Println("hello, this is my attempt at implementing consistent hashing")
-	// new server
-	masterServer := NewMasterServer()
-	// add nodes to the server
-	// db nodes a map of node names to data
-	nodeCount := 10
-	for i := 0; i < nodeCount; i++ {
-		node := Node{
-			ID:          strconv.Itoa(i) + " Node",
-			Name:        strconv.Itoa(i) + " Node Name",
-			PrimaryData: make(map[string]string),
-			ReplicaData: make(map[string]string),
-		}
-		masterServer.AddNode(node)
-		masterServer.DBClient.AddNode(node)
-	}
-
-	// test, TODO move to test file
-	// add data
-	for i := 0; i < 10; i++ {
-		masterServer.AddData(strconv.Itoa(i)+" something key", strconv.Itoa(i)+" something value")
-	}
-	for i := 0; i < 10; i++ {
-		key := strconv.Itoa(i) + " something key"
-		val := masterServer.GetData(key)
-		fmt.Printf("key: %v, vale: %v\n", key, val)
-	}
-
+	// new serve
 }
 
 func NewMasterServer() *MasterServer {
@@ -54,7 +27,7 @@ func NewMasterServer() *MasterServer {
 }
 
 type DbClient struct {
-	DataDB map[string]Node // node names to Node
+	DataDB map[string]Node // node names to Node Instance
 }
 
 func (dbc *DbClient) AddNode(node Node) {
